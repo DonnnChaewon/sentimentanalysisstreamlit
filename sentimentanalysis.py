@@ -68,7 +68,7 @@ if uploaded:
     df['sentiment'] = df['score'].apply(analyze)
         
     # Display the dataframe
-    st.write(df[['text', 'sentiment', 'score']].sample(n=100)
+    st.write(df[['text', 'sentiment', 'score']])
 
     @st.cache
     def convert_df(df):
