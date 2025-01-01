@@ -1,7 +1,7 @@
-from textblob import TextBlob
 import pandas as pd
-import streamlit as st
+from textblob import TextBlob
 import cleantext
+import streamlit as st
 
 st.header('Sentiment Analysis')
 st.write('In sentiment analysis, there are two most important components to classify a sentence, those are polarity and subjectivity.')
@@ -40,9 +40,13 @@ def clean_text(text):
         stopwords=True, lowercase=True, numbers=True, punct=True
     )
 
-def score(x):
+def polarity_score(x):
     blob = TextBlob(x)
     return blob.sentiment.polarity
+
+def subjectivity_score(x):
+    blob = TextBlob(x)
+    return blob.sentiment.subjectivity
 
 def analyze(x):
     if x > 0:
@@ -58,26 +62,20 @@ if uploaded:
     # Ensure the text column is string and handle null values
     df['text'] = df['text'].fillna('').astype(str)
         
-    # Clean the text column
     df['text'] = df['text'].apply(clean_text)
+
+    df['polarity_score'] = df['text'].apply(polarity_score)
+    df['subjectivity_score'] = df['text'].apply(subjectivity_score)
+
+    df['sentiment'] = df['polarity_score'].apply(analyze)
         
-    # Calculate the polarity score
-    df['score'] = df['text'].apply(score)
-        
-    # Determine sentiment
-    df['sentiment'] = df['score'].apply(analyze)
-        
-    # Display the dataframe
-    st.write(df[['text', 'sentiment', 'score']])
+    st.write(df[['text', 'sentiment', 'polarity_score', 'subjectivity_score']])
 
     @st.cache
     def convert_df(df):
         return df.to_csv().encode('utf-8')
-
-    # Convert the dataframe to CSV
     csv = convert_df(df)
 
-    # Download button for the cleaned and analyzed data
     st.download_button(
         label="Download data as CSV", data=csv,
         file_name='sentiment.csv', mime='text/csv',
