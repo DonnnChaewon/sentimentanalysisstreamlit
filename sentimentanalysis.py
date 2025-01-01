@@ -4,7 +4,7 @@ import streamlit as st
 import cleantext
 
 st.header('Sentiment Analysis')
-st.write('In sentiment analysis, there are two most important categories to classify a sentence, those are polarity and subjectivity.')
+st.write('In sentiment analysis, there are two most important components to classify a sentence, those are polarity and subjectivity.')
 
 st.divider()
 
