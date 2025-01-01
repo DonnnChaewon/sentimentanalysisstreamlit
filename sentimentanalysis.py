@@ -1,3 +1,5 @@
+!pip install textblob
+
 import textblob
 from textblob import TextBlob
 import pandas as pd
