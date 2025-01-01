@@ -45,9 +45,9 @@ def score(x):
     return blob.sentiment.polarity
 
 def analyze(x):
-    if x >= 0.5:
+    if x > 0:
         return 'Positive'
-    elif x <= -0.5:
+    elif x < 0:
         return 'Negative'
     else:
         return 'Neutral'
@@ -68,7 +68,7 @@ if uploaded:
     df['sentiment'] = df['score'].apply(analyze)
         
     # Display the dataframe
-    st.write(df[['text', 'sentiment', 'score']].head(100))
+    st.write(df[['text', 'sentiment', 'score']].sample(n=100)
 
     @st.cache
     def convert_df(df):
