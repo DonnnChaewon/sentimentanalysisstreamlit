@@ -23,8 +23,8 @@ pre = st.text_input('Input text to be cleaned: ')
 if pre:
     st.write('Cleaned text:')
     st.write(cleantext.clean(
-        pre, clean_all= False, extra_spaces=True, 
-        stopwords=True, lowercase=True, numbers=True, punct=True))
+        pre, clean_all=False, extra_spaces=True, 
+        stopwords=False, lowercase=True, numbers=True, punct=True))
 
 st.divider()
 
@@ -37,7 +37,7 @@ def clean_text(text):
         return ''  # Return an empty string if the input is not a valid string
     return cleantext.clean(
         text, clean_all=False, extra_spaces=True,
-        stopwords=True, lowercase=True, numbers=True, punct=True
+        stopwords=False, lowercase=True, numbers=True, punct=True
     )
 
 def polarity_score(x):
