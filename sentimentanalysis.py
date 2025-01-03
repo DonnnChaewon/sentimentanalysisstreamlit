@@ -19,11 +19,11 @@ if text:
     st.write(f'Polarity: {blob.sentiment.polarity}')
     st.write(f'Subjectivity: {blob.sentiment.subjectivity}')
 
-pre = st.text_input('Input text to be cleaned: ')
-if pre:
+raw = st.text_input('Input text to be cleaned: ')
+if raw:
     st.write('Cleaned text:')
     st.write(cleantext.clean(
-        pre, clean_all=False, extra_spaces=True, 
+        raw, clean_all=False, extra_spaces=True, 
         stopwords=False, lowercase=True, numbers=True, punct=True))
 
 st.divider()
@@ -80,5 +80,3 @@ if uploaded:
         label="Download data as CSV", data=csv,
         file_name='sentiment.csv', mime='text/csv',
     )
-
-# streamlit run sentimentanalysis.py [-- script args]
